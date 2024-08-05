@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class List</title>
+    <style>
+        button {
+            display: block;
+            margin: 10px 0;
+        }
+        #searchResults {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Classes</h1>
+    <input type="text" id="searchInput" placeholder="Search for a class...">
+    <div id="searchResults"></div>
+
+    <script>
+        const classes = {
+            CMPS1005: {
+                title: "CMPS 1005 Python Programming (3)",
+                description: "An introductory course on computer programming, in which the students design, implement, test, and debug programs for computational problems using Python programming language. This course emphasizes program design process, object-oriented software development approach, and practical programming skills that translate to programming in other modern languages. Assignments include practical problems drawn from various fields (e.g. biology, linguistics, graphics, and games). Open to high-school students only, no prerequisites. Credits don’t count toward Coordinate Major in Computer Science."
+            },
+            CMPS1100: {
+                title: "CMPS 1100 Foundations of Programming (3)",
+                description: "An introductory practice-oriented course on computer programming, in which the students design, implement, test and debug programs for computational problems drawn from various fields using Python programming language, while working individually and in groups. This course emphasizes program design process, object-oriented software development approach, and development of practical programming skills that translate to programming in other modern languages. This is a stand-alone introductory computer science course that is not a part of the coordinate major in computer science program. It is aimed at students with no prior computing background who wish to learn the foundations of programming and computational problem solving."
+            },
+            CMPS1500: {
+                title: "CMPS 1500 Intro to Computer Science I (4)",
+                description: "Computational tools are a critical part of our everyday lives. Software is the driving force behind cutting-edge scientific discovery, blockbuster entertainment, and today's fast-paced marketplace. This course is an introduction to techniques, ideas, and problem-solving approaches that are used to develop some of these tools. At a high level, we focus on developing 'computational thinking', which is the practice of using abstraction to design and implement algorithms and software to solve problems that arise in many different areas of our daily lives, such as networks, social media, and scientific computing, to name just a few. At a practical level, students will design, implement, test and document their programs to learn introductory programming concepts, such as: data types and data structures (e.g. lists, dictionaries, trees); programming techniques (modular design using functions, recursion, object-oriented programming); performance analysis via theoretical estimate, profiling and timing. Most assignments in this course are programming assignments aimed to teach the students to express their ideas in efficient and elegant code; no prior programming experience is necessary to join and succeed in the course. Lecture periods are dedicated to introducing new material, discussions, individual and group activities. Lab periods are used for programming practice. CMPS 1500 is the first course for the Coordinate Major in Computer Science."
+            },
+            CMPS1501:{
+                title: "CMPS 1501  Intro to Computer Sci I Lab  (0) ",
+                description: "Corequisite lab of CMPS 1500. Corequisite(s): CMPS 1500" 
+            }, 
+            CMPS1600: { 
+                title: "CMPS 1600  Intro to Computer Science II  (4)",
+                description: "This course is an introductory breadth course for computer science, focusing on several core topics in the design, analysis and implementation of computational tools that are drawn from the fields of data structures, software engineering, and programming languages (such as Java, C, Haskell). Object-oriented programming, test-driven development, data structures and abstract data types, imperative programming and memory management, and functional programming will all be covered. By solving practical, real-life problems in different programming languages and in different ways, students learn to select a language and approach most appropriate for the situation and prepare to learn new languages independently. The high-level goal of this course is to train students to be able to draw from a versatile set of skills, which in turn will provide a strong foundation for further study in computer science.",
+                corec: "Corequisite(s): CMPS 1601."
+            }
+
+            
+            // Add more classes as needed
+        };
+
+        function viewClass(classId) {
+            window.location.href = `classDetails.html?classId=${classId}`;
+        }
+
+        function searchClasses() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const results = document.getElementById('searchResults');
+            results.innerHTML = '';
+
+            for (const classId in classes) {
+                if (classes[classId].title.toLowerCase().includes(input) || classId.toLowerCase().includes(input)) {
+                    const button = document.createElement('button');
+                    button.innerText = classes[classId].title;
+                    button.onclick = () => viewClass(classId);
+                    results.appendChild(button);
+                }
+            }
+
+            if (results.innerHTML === '') {
+                results.innerHTML = '<p>No classes found</p>';
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('input', searchClasses);
+    </script>
+</body>
+</html>
