@@ -1,76 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Class List</title>
+    <title>Student Information</title>
     <style>
-        button {
-            display: block;
-            margin: 10px 0;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        #searchResults {
-            margin-top: 20px;
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .button-container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
-    <h1>Available Classes</h1>
-    <input type="text" id="searchInput" placeholder="Search for a class...">
-    <div id="searchResults"></div>
+    <div class="container">
+        <h1>Student Information</h1>
+        <form id="studentForm">
+            <label for="school">School</label>
+            <input type="text" id="school" name="school" required>
+
+            <label for="major">Major</label>
+            <select id="major" name="major" required></select>
+
+            <label for="minor">Minor</label>
+            <select id="minor" name="minor"></select>
+
+            <label for="studyAbroad">Do you want to study abroad?</label>
+            <select id="studyAbroad" name="studyAbroad" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <div class="button-container">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 
     <script>
-        const classes = {
-            CMPS1005: {
-                title: "CMPS 1005 Python Programming (3)",
-                description: "An introductory course on computer programming, in which the students design, implement, test, and debug programs for computational problems using Python programming language. This course emphasizes program design process, object-oriented software development approach, and practical programming skills that translate to programming in other modern languages. Assignments include practical problems drawn from various fields (e.g. biology, linguistics, graphics, and games). Open to high-school students only, no prerequisites. Credits don’t count toward Coordinate Major in Computer Science."
-            },
-            CMPS1100: {
-                title: "CMPS 1100 Foundations of Programming (3)",
-                description: "An introductory practice-oriented course on computer programming, in which the students design, implement, test and debug programs for computational problems drawn from various fields using Python programming language, while working individually and in groups. This course emphasizes program design process, object-oriented software development approach, and development of practical programming skills that translate to programming in other modern languages. This is a stand-alone introductory computer science course that is not a part of the coordinate major in computer science program. It is aimed at students with no prior computing background who wish to learn the foundations of programming and computational problem solving."
-            },
-            CMPS1500: {
-                title: "CMPS 1500 Intro to Computer Science I (4)",
-                description: "Computational tools are a critical part of our everyday lives. Software is the driving force behind cutting-edge scientific discovery, blockbuster entertainment, and today's fast-paced marketplace. This course is an introduction to techniques, ideas, and problem-solving approaches that are used to develop some of these tools. At a high level, we focus on developing 'computational thinking', which is the practice of using abstraction to design and implement algorithms and software to solve problems that arise in many different areas of our daily lives, such as networks, social media, and scientific computing, to name just a few. At a practical level, students will design, implement, test and document their programs to learn introductory programming concepts, such as: data types and data structures (e.g. lists, dictionaries, trees); programming techniques (modular design using functions, recursion, object-oriented programming); performance analysis via theoretical estimate, profiling and timing. Most assignments in this course are programming assignments aimed to teach the students to express their ideas in efficient and elegant code; no prior programming experience is necessary to join and succeed in the course. Lecture periods are dedicated to introducing new material, discussions, individual and group activities. Lab periods are used for programming practice. CMPS 1500 is the first course for the Coordinate Major in Computer Science."
-            },
-            CMPS1501:{
-                title: "CMPS 1501  Intro to Computer Sci I Lab  (0) ",
-                description: "Corequisite lab of CMPS 1500. Corequisite(s): CMPS 1500" 
-            }, 
-            CMPS1600: { 
-                title: "CMPS 1600  Intro to Computer Science II  (4)",
-                description: "This course is an introductory breadth course for computer science, focusing on several core topics in the design, analysis and implementation of computational tools that are drawn from the fields of data structures, software engineering, and programming languages (such as Java, C, Haskell). Object-oriented programming, test-driven development, data structures and abstract data types, imperative programming and memory management, and functional programming will all be covered. By solving practical, real-life problems in different programming languages and in different ways, students learn to select a language and approach most appropriate for the situation and prepare to learn new languages independently. The high-level goal of this course is to train students to be able to draw from a versatile set of skills, which in turn will provide a strong foundation for further study in computer science.",
-                corec: "Corequisite(s): CMPS 1601."
-            }
+        const majors = [
+            'Undecided', 'Africana Studies Major', 'Anthropology, BA', 'Anthropology, BS', 'Architecture, B.Arch',
+            'Architecture, BSA', 'Art History Major, BA', 'Asian Studies Major', 'Biological Chemistry Major',
+            'Biomedical Engineering Major', 'Cell and Molecular Biology Major', 'Chemical Engineering Major',
+            'Chemistry Major', 'Cinema Studies Major', 'Classical Studies Major, BA', 'Cognitive Studies Coordinate Major',
+            'Communication Major', 'Dance, BA', 'Dance, BFA', 'Design, BA', 'Earth and Environmental Sciences Major',
+            'Ecology and Evolutionary Biology Major', 'Economics, BA', 'Economics, BS', 'Engineering Physics Major',
+            'English Major', 'Environmental Biology Major', 'Environmental Studies Major', 'Exercise Science, B.S.',
+            'Finance Major, BSM', 'French Major', 'Gender and Sexuality Studies Major', 'German Studies Major',
+            'Greek Major, BA', 'Health and Wellness, B.A.', 'History Major', 'Homeland Security, B.A.', 'Information Technology, B.S.',
+            'Italian Major', 'Jewish Studies Major', 'Latin American Studies Major', 'Latin Major', 'Legal Studies in Business Major, BSM',
+            'Linguistics, BA', 'Linguistics, BS', 'Management Major, BSM', 'Marketing Major, BSM', 'Mathematics Major',
+            'Medieval and Early Modern Studies Major', 'Middle East & North African Studies Major', 'Music, BA', 'Music, BFA',
+            'Neuroscience Major', 'Philosophy Major', 'Philosophy Major with Concentration in Language, Mind, and Knowledge',
+            'Philosophy Major with Concentration in Law, Morality, and Society', 'Physics Major',
+            'Political Economy Major with Concentration in Economics and Public Policy',
+            'Political Economy Major with Concentration in International Perspectives',
+            'Political Economy Major with Concentration in Law, Economics, and Policy',
+            'Political Economy Major with Concentration in Moral and Historical Perspectives', 'Political Science Major',
+            'Political Science/ International Development Major', 'Political Science/ International Relations Major',
+            'Portuguese Coordinate Major', 'Psychology Major', 'Public Health, BSPH', 'Real Estate, BS', 'Russian Major',
+            'Secondary Education (Grades 6-12) Coordinate Major', 'Social Policy and Practice Coordinate Major', 'Sociology Major',
+            'Spanish and Portuguese Major', 'Spanish Major', 'Studio Art, BA', 'Studio Art, BFA', 'Theatre, BA', 'Theatre, BFA'
+        ];
 
-            
-            // Add more classes as needed
-        };
+        const minors = [
+            'Undecided', 'Accounting Minor for BSMs', 'Africana Studies Minor', 'Anthropology Minor', 'Arabic Studies Minor', 'Architecture Minor',
+            'Art History Minor', 'Asian Studies Minor', 'Biological Chemistry Minor', 'Biomedical Engineering Minor',
+            'Biomedical Engineering Minor for Non-Engineering Majors', 'Cell and Molecular Biology Minor', 'Chemistry Minor',
+            'Chinese Language Minor', 'Cinema Studies Minor', 'Civil Engineering-Water Resources and Environmental Minor',
+            'Classical Studies Minor', 'Computational Engineering Certificate', 'Computer Science Certificate',
+            'Creative Industries Undergraduate Certificate', 'Design Minor', 'Earth and Environmental Sciences Minor',
+            'Ecology and Evolutionary Biology Minor', 'Economics Minor', 'Electrical Engineering Certificate',
+            'Electrical Engineering Minor', 'Energy Certificate', 'Engineering Science Minor', 'English Minor',
+            'Environmental Studies Minor', 'Exercise Science Minor', 'Finance Minor for BSMs', 'French Minor',
+            'Gender and Sexuality Studies Minor', 'Gender Based Violence Certificate', 'Geographic Information Systems Certificate',
+            'German Studies Minor', 'Greek Minor', 'Health and Wellness Minor', 'Historic Preservation Minor', 'History Minor',
+            'Homeland Security Studies Minor', 'Hospitality Certificate', 'Information Technology Minor', 'Italian Minor',
+            'Japanese Language Minor', 'Jewish Studies Minor', 'Latin American Studies Certificate for Public Health Majors',
+            'Latin American Studies Minor', 'Latin Minor', 'Legal Studies in Business Minor for BSMs', 'Management Minor for BSMs',
+            'Marine Biology Minor for Biology Majors', 'Marine Biology Minor for Non-Biology Majors', 'Marketing Minor for BSMs',
+            'Materials Engineering Certificate', 'Materials Engineering Minor', 'Mathematics Minor', 'Mechanical Engineering Certificate',
+            'Mechanical Engineering Minor', 'Medieval and Early Modern Studies Minor', 'Minor in Entrepreneurial Business (available to BSM\'s and non-BSM\'s)',
+            'Minors for Non-Business Students', 'Music Minor', 'Music Science and Technology Minor', 'Native American and Indigenous Studies Minor',
+            'Philosophy Minor', 'Physics Minor', 'Political Science Minor', 'Political Science/ International Development Minor',
+            'Portuguese Minor', 'Psychology Minor', 'Public Health Minor', 'Public Health Nutrition Minor', 'Real Estate Finance and Investment Certificate',
+            'Real Estate Minor', 'Religious Studies Minor', 'Russian Minor', 'Social Innovation & Social Entrepreneurship Minor',
+            'Social Work Minor', 'Sociology Minor', 'Spanish Minor', 'Sports Management Certificate', 'Strategy, Leadership & Analytics Minor',
+            'Studio Art Minor', 'Summer Business Minor Institute for non-BSMs', 'Teaching, Learning, and Training Minor', 'Theatre Minor',
+            'Urban Studies Minor', 'US Public Policy Minor'
+        ];
 
-        function viewClass(classId) {
-            window.location.href = `classDetails.html?classId=${classId}`;
-        }
+        const majorSelect = document.getElementById('major');
+        majors.forEach(major => {
+            const option = document.createElement('option');
+            option.value = major;
+            option.textContent = major;
+            majorSelect.appendChild(option);
+        });
 
-        function searchClasses() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const results = document.getElementById('searchResults');
-            results.innerHTML = '';
+        const minorSelect = document.getElementById('minor');
+        minors.forEach(minor => {
+            const option = document.createElement('option');
+            option.value = minor;
+            option.textContent = minor;
+            minorSelect.appendChild(option);
+        });
 
-            for (const classId in classes) {
-                if (classes[classId].title.toLowerCase().includes(input) || classId.toLowerCase().includes(input)) {
-                    const button = document.createElement('button');
-                    button.innerText = classes[classId].title;
-                    button.onclick = () => viewClass(classId);
-                    results.appendChild(button);
-                }
-            }
+        document.getElementById('studentForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            // Perform any necessary actions before redirection (e.g., validation or logging)
 
-            if (results.innerHTML === '') {
-                results.innerHTML = '<p>No classes found</p>';
-            }
-        }
-
-        document.getElementById('searchInput').addEventListener('input', searchClasses);
+            // Redirect to tulane.html
+            window.location.href = 'tulanehome.html';
+        });
     </script>
 </body>
+
 </html>
